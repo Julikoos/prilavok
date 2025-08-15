@@ -36,7 +36,7 @@ def positive_assert(kit_name):
     assert response_data["name"] == kit_name
 
 
-def negative_assert(kit_body):
+def negative_assert_code_400(kit_body):
    kit_response = sender_stand_request.post_new_client_kit(kit_body, AUTH_HEADERS)
    assert kit_response.status_code == 400
 
@@ -52,13 +52,13 @@ def test_create_kit_511_success_response():
 def test_create_kit_0_symbols_success_response():
     kit_body = data.kit_body.copy()
     kit_body["name"] = ""
-    negative_assert(kit_body) 
+    negative_assert_code_400(kit_body) 
 
 
 def test_create_kit_512_success_response():
     kit_body = data.kit_body.copy()
     kit_body["name"] = "AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabCd"
-    negative_assert(kit_body)  
+    negative_assert_code_400(kit_body)  
 
 
 def test_create_kit_english_success_response():
@@ -84,10 +84,10 @@ def test_create_kit_number_success_response():
 def test_create_kit_without_param_name_get_error_response():
     kit_body = data.kit_body.copy()
     kit_body.pop("name")
-    negative_assert(kit_body)
+    negative_assert_code_400(kit_body)
 
 
 def test_create_kit_another_data_type_name_get_error_response():
     kit_body = data.kit_body.copy()
     kit_body["name"] = 123
-    negative_assert(kit_body)
+    negative_assert_code_400(kit_body)
